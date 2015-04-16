@@ -2,8 +2,7 @@ import React from "react"
 
 export default class extends React.Component{
   submit(){
-    
-  },
+  }
   render(){
     return (
       <div className="inputField">
