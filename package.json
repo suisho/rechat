@@ -4,12 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "browserify src/index.jsx > www/lib/index.js",
-    "start-static": "static www",
+    "build": "browserify src/index.jsx > lib/index.js",
     "start": "budo ./src/index.jsx:lib/index.js --verbose | garnish",
-    "start-wz": "wzrd ./src/index.jsx:lib/index.js --verbose ",
-    "gulp": "gulp",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha"
   },
   "keywords": [],
   "author": "suisho",
@@ -26,6 +23,7 @@
   "devDependencies": {
     "babelify": "^6.0.2",
     "browserify": "^9.0.8",
+    "mocha": "^2.2.4",
     "reactify": "^1.1.0",
     "static": "^2.0.0",
     "watchify": "^3.1.1",
