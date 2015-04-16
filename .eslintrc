@@ -11,6 +11,7 @@ ecmaFeatures:
   binaryLiterals: true
   blockBindings: true
   classes: true
+  destructuring: true
   defaultParams: true
   forOf: true
   generators: true

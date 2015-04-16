@@ -7,22 +7,26 @@ class MessageActions extends Actions {
 class MessageStore extends Store {
   constructor(flux) {
     super()
-
     const messageActions = flux.getActions("messages")
     this.register(messageActions.newMessage, this.handleNewMessage);
     this.messageCounter = 0;
 
-    this.state = {};
+    this.state = {
+      messages: []
+    };
   }
   handleNewMessage(content) {
     const id = this.messageCounter++
-
+    var msgs = this.state.messages
+    msgs.push(content)
     this.setState({
-      [id]: {
-        content,
-        id,
-      },
+      messages: msgs
+      // [id]: {
+      //   content,
+      //   id
+      // }
     })
+
   }
 }
 
