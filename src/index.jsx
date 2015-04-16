@@ -1,5 +1,5 @@
-var React = require("react")
+import React from "react"
+import App   from "./App.jsx"
 
 var container = document.querySelector("#container")
-console.log(container)
-React.render(<div>Hola</div>, container)
+React.render(<App />, container)
