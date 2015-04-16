@@ -1,11 +1,14 @@
 import React from "react"
 
 export default class extends React.Component{
+  submit(){
+    
+  },
   render(){
     return (
-      <div>
+      <div className="inputField">
         <input></input>
-        <button>送信</button>
+        <button onClick={this.submit}>送信</button>
       </div>
     )
   }

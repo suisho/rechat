@@ -7,8 +7,8 @@ export default class extends React.Component{
     return (
       <div>
         <h1>hola</h1>
-        <Chat></Chat>
-        <InputField></InputField>
+        <Chat />
+        <InputField />
       </div>
     )
   }

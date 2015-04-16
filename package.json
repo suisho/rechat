@@ -12,20 +12,26 @@
   "author": "suisho",
   "license": "ISC",
   "dependencies": {
-    "react": "^0.13.1"
+    "flummox": "^4.0.0-alpha",
+    "marty": "^0.9.11",
+    "react": "^0.13.1",
+    "reflux": "^0.2.7"
   },
   "browserify": {
     "transform": [
       "babelify",
-      "reactify"
+      "reactify",
+      "stylify"
     ]
   },
   "devDependencies": {
     "babelify": "^6.0.2",
     "browserify": "^9.0.8",
+    "insert-css": "^0.2.0",
     "mocha": "^2.2.4",
     "reactify": "^1.1.0",
     "static": "^2.0.0",
+    "stylify": "^1.2.0",
     "watchify": "^3.1.1",
     "wzrd": "^1.2.1"
   }
