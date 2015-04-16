@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "browserify src/index.jsx > lib/index.js",
-    "start": "budo ./src/index.jsx:lib/index.js --verbose | garnish",
+    "start": "budo ./src/index.jsx:lib/index.js --verbose --live | garnish",
     "test": "mocha"
   },
   "keywords": [],
