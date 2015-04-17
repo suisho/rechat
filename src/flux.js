@@ -3,15 +3,6 @@ const Keys = {
   ask: "ask"
 }
 
-let askInstance = new Ask([
-  {
-    name: "name",
-    message: "お名前を教えて下さい",
-    placeholder: "名前を入力",
-    type: "input"
-  }
-])
-
 class Ask{
   constructor(questions){
     this.questions = questions
@@ -20,23 +11,38 @@ class Ask{
   answer(question, answer){
     this.answers[question] = answer
   }
-  getCurrentAsking(){
+  getNextAsk(){
     for(let i = 0; i < this.questions.length; i++){
       var q = this.questions[i]
-      if(this.answers[])
+      if(!this.answers[q.name]){
+        return q
+      }
     }
   }
-  getMessages(){
+  buildMessages(){
     var messages = []
     this.questions.forEach((q) => {
-      messages.push(q.message)
+      messages.push({
+        message: q.message
+      })
       if(this.answers[q.name]){
-        messages.push(this.answer)
+        messages.push({
+          message: this.answer
+        })
       }
     })
     return messages
   }
 }
+
+let askInstance = new Ask([
+  {
+    name: "name",
+    message: "お名前を教えて下さい",
+    placeholder: "名前を入力",
+    type: "input"
+  }
+])
 
 class AskActions extends Actions {
   answer(content) { return content }
@@ -49,18 +55,19 @@ class AskStore extends Store {
     this.register(messageActions.newMessage, this.handleNewMessage);
     this.ask = ask
     this.state = {
-      messages: ask.getMessages()
+      messages: this.ask.buildMessages()
     };
   }
   getMessages(){
     return this.state.messages
   }
-  getCurrentAsking(){
-    
+  getNextAsk(){
+    return this.ask.getNextAsk()
   }
   handleNewMessage(content) {
+    this.ask.answer()
     this.setState({
-      messages: this.ask.getMessages()
+      messages: this.ask.buildMessages()
       // [id]: {
       //   content,
       //   id

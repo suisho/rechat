@@ -5,7 +5,7 @@ export default class extends React.Component{
   render(){
     var msgObjs = this.props.messages || []
     var messages = msgObjs.map((msg, i) => {
-      return <Message message={msg} key={i} />
+      return <Message message={msg.message} key={i} />
     })
     return (
       <div>

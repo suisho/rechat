@@ -5,10 +5,10 @@ import connectToStores from "flummox/connect";
 
 class ChatHandler extends React.Component{
   render(){
-    const { messages } = this.props
+    const { ask, messages } = this.props
     return (
       <div>
-        <Chat messages={messages.messages} />
+        <Chat messages={messages} />
         <InputField onSubmit={this.onSubmit} />
       </div>
     )
@@ -16,8 +16,9 @@ class ChatHandler extends React.Component{
 }
 
 ChatHandler = connectToStores(ChatHandler, {
-  messages: store => ({
-    messages: store.state
+  ask: store => ({
+    ask: store.getNextAsk(),
+    messages: store.getMessages()
   })
 })
 
