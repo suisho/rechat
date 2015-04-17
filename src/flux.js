@@ -1,7 +1,5 @@
 import { Flummox, Store, Actions } from "flummox"
-const Keys = {
-  ask: "ask"
-}
+import Keys from "./keys"
 
 class Ask{
   constructor(questions){
@@ -11,23 +9,28 @@ class Ask{
   answer(question, answer){
     this.answers[question] = answer
   }
-  getNextAsk(){
+  askedIndex(){
     for(let i = 0; i < this.questions.length; i++){
       var q = this.questions[i]
       if(!this.answers[q.name]){
-        return q
+        return i
       }
     }
+    return -1
+  }
+  getNextAsk(){
+    return this.questions[this.askedIndex()]
   }
   buildMessages(){
     var messages = []
-    this.questions.forEach((q) => {
+    var qs = this.questions.slice(0, this.askedIndex() + 1)
+    qs.forEach((q) => {
       messages.push({
         message: q.message
       })
       if(this.answers[q.name]){
         messages.push({
-          message: this.answer
+          message: this.answers[q.name]
         })
       }
     })
@@ -41,18 +44,26 @@ let askInstance = new Ask([
     message: "お名前を教えて下さい",
     placeholder: "名前を入力",
     type: "input"
+  },
+  {
+    name: "kana",
+    message: "ふりがなも教えて下さい",
+    placeholder: "ふりがなを入力",
+    type: "input"
   }
 ])
 
 class AskActions extends Actions {
-  answer(content) { return content }
+  answer(name, value) {
+    return { name: name, value: value }
+  }
 }
 
 class AskStore extends Store {
   constructor(flux, ask) {
     super()
     const messageActions = flux.getActions(Keys.ask)
-    this.register(messageActions.newMessage, this.handleNewMessage);
+    this.register(messageActions.answer, this.handleNewMessage);
     this.ask = ask
     this.state = {
       messages: this.ask.buildMessages()
@@ -65,7 +76,7 @@ class AskStore extends Store {
     return this.ask.getNextAsk()
   }
   handleNewMessage(content) {
-    this.ask.answer()
+    this.ask.answer(content.name, content.value)
     this.setState({
       messages: this.ask.buildMessages()
       // [id]: {
@@ -77,7 +88,7 @@ class AskStore extends Store {
 }
 
 
-class Flux extends Flummox {
+export default class extends Flummox {
   constructor() {
     super();
 
@@ -88,5 +99,3 @@ class Flux extends Flummox {
     // this.createStore("messages", MessageStore, this)
   }
 }
-
-export default new Flux();

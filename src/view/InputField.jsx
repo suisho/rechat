@@ -14,12 +14,11 @@ export default class extends React.Component{
     node.value = ""
   }
   render(){
-    const placeholder = this.props.placeholder || "名前を入力"
     return (
       <form className="inputField" onSubmit={this.submit}>
         <input ref="text"
           name={this.props.name}
-          placeholder={placeholder} />
+          placeholder={this.props.placeholder} />
         <button >送信</button>
       </form>
     )
