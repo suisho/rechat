@@ -1,13 +1,17 @@
 import React from "react"
 import InputField from "./InputField.jsx"
 import Chat       from "./Chat.jsx"
-import connectToStores from 'flummox/connect';
+import connectToStores from "flummox/connect";
 
 class ChatHandler extends React.Component{
   render(){
-    console.log(this.props)
     const { messages } = this.props
-    return <Chat messages={messages.messages} />
+    return (
+      <div>
+        <Chat messages={messages.messages} />
+        <InputField onSubmit={this.onSubmit} />
+      </div>
+    )
   }
 }
 
@@ -20,16 +24,16 @@ ChatHandler = connectToStores(ChatHandler, {
 export default class extends React.Component{
   constructor(){
     super()
+    this.onSubmit = this.onSubmit.bind(this)
   }
-  onSubmit(value){
-    this.props.flux.getActions("messages").newMessage(value)
+  onSubmit(name, value){
+    this.props.flux.getActions("messages").newMessage(name, value)
   }
   render(){
     return (
       <div>
         <h1>Hello</h1>
         <ChatHandler />
-        <InputField onSubmit={this.onSubmit.bind(this)} />
       </div>
     )
   }

@@ -3,20 +3,25 @@ import React from "react"
 export default class extends React.Component{
   constructor(){
     super()
+    this.submit = this.submit.bind(this)
   }
-  submit(){
-    var text = React.findDOMNode(this.refs.text).value.trim();
-    this.props.onSubmit(text)
-    React.findDOMNode(this.refs.text).value = ""
+  submit(e){
+    e.preventDefault()
+    const node = React.findDOMNode(this.refs.text)
+    const text = node.value.trim();
+    const name = node.name
+    this.props.onSubmit(name, text)
+    node.value = ""
   }
   render(){
-    let placeholder = this.props.placeholder || "名前を入力"
+    const placeholder = this.props.placeholder || "名前を入力"
     return (
-      <div className="inputField">
+      <form className="inputField" onSubmit={this.submit}>
         <input ref="text"
+          name={this.props.name}
           placeholder={placeholder} />
-        <button onClick={this.submit.bind(this)}>送信</button>
-      </div>
+        <button >送信</button>
+      </form>
     )
   }
 }
