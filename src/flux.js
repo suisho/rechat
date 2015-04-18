@@ -53,7 +53,7 @@ let askInstance = new Ask([
   }
 ])
 
-class AskActions extends Actions {
+class AppActions extends Actions {
   answer(name, value) {
     return { name: name, value: value }
   }
@@ -92,7 +92,7 @@ export default class extends Flummox {
   constructor() {
     super();
 
-    this.createActions(Keys.ask, AskActions)
+    this.createActions(Keys.ask, AppActions)
     this.createStore(Keys.ask, AskStore, this, askInstance)
 
     // this.createActions("messages", MessageActions)
