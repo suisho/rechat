@@ -1,12 +1,26 @@
 $green = #3ea12b
+.header
+  background: $green
 .inputField
-  bottom : 10
+  bottom: 0
   position : fixed
   z-index : 999
   width: 100%
+  background: $green
+  margin: 0
   input
     padding: 0.5em
     height: 3em
     line-height: 1.5
     border: 1px solid $green
     width: 60%
+
+.chat-area
+  height: 80%
+  overflow-y: scroll
+
+.message
+  background: rgb(148, 211, 125)
+  border-radius: 5px
+  padding: 5px;
+  margin: 5px;

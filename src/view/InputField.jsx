@@ -14,12 +14,22 @@ export default class extends React.Component{
     node.value = ""
   }
   render(){
+    const {ask} = this.props
+    const {name, placeholder} = ask || {}
+    var inputElement = <div>終了</div>
+    if(name){
+      inputElement = (
+        <div>
+          <input ref="text"
+            name={name}
+            placeholder={placeholder} />
+          <button>送信</button>
+        </div>
+      )
+    }
     return (
       <form className="inputField" onSubmit={this.submit}>
-        <input ref="text"
-          name={this.props.name}
-          placeholder={this.props.placeholder} />
-        <button >送信</button>
+        {inputElement}
       </form>
     )
   }

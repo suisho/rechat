@@ -12,19 +12,13 @@ class ChatHandler extends React.Component{
     const { ask, messages, onSubmit } = this.props
     return (
       <div>
+        <h1 className="header">Hello</h1>
         <Chat messages={messages} />
-        <InputField onSubmit={onSubmit} name={ask.name} placeholder={ask.placeholder}/>
+        <InputField onSubmit={onSubmit} ask={ask}/>
       </div>
     )
   }
 }
-
-// ChatHandler = connectToStores(ChatHandler, {
-//   ask: store => ({
-//     ask: store.getNextAsk(),
-//     messages: store.getMessages()
-//   })
-// })
 
 export default class extends React.Component{
   constructor(){
@@ -37,17 +31,14 @@ export default class extends React.Component{
   }
   render(){
     return (
-      <div>
-        <h1>Hello</h1>
-        <FluxComponent flux={this.flux} connectToStores={{
-          ask: store => ({
-            ask: store.getNextAsk(),
-            messages: store.getMessages()
-          })
-        }}>
-          <ChatHandler onSubmit={this.onSubmit} />
-        </FluxComponent>
-      </div>
+      <FluxComponent flux={this.flux} connectToStores={{
+        ask: store => ({
+          ask: store.getNextAsk(),
+          messages: store.getMessages()
+        })
+      }}>
+        <ChatHandler onSubmit={this.onSubmit} />
+      </FluxComponent>
     )
   }
 }

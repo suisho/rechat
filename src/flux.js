@@ -16,13 +16,25 @@ class Ask{
         return i
       }
     }
-    return -1
+    return this.questions.length
   }
   getNextAsk(){
     return this.questions[this.askedIndex()]
   }
+  dummyMessage(msgs){
+    return msgs.map((msg) => {
+      return {
+        message: msg
+      }
+    })
+  }
   buildMessages(){
-    var messages = []
+    var messages = this.dummyMessage([
+      "あああ", "いいい", "ううう", "えええ", "おおお",
+      "あああ", "いいい", "ううう", "えええ", "おおお",
+      "あああ", "いいい", "ううう", "えええ", "おおお",
+      "あああ", "いいい", "ううう", "えええ", "おおお",
+    ])
     var qs = this.questions.slice(0, this.askedIndex() + 1)
     qs.forEach((q) => {
       messages.push({

@@ -8,7 +8,7 @@ export default class extends React.Component{
       return <Message message={msg.message} key={i} />
     })
     return (
-      <div>
+      <div className="chat-area">
         {messages}
       </div>
     )
