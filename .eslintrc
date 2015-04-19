@@ -28,3 +28,5 @@ ecmaFeatures:
   unicodeCodePointEscapes: true
   globalReturn: true
   jsx: true
+plugins:
+  - react
