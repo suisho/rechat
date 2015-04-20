@@ -30,12 +30,6 @@ class Ask{
   }
   buildMessages(){
     var messages = []
-    // this.dummyMessage([
-    //   "あああ", "いいい", "ううう", "えええ", "おおお",
-    //   "あああ", "いいい", "ううう", "えええ", "おおお",
-    //   "あああ", "いいい", "ううう", "えええ", "おおお",
-    //   "あああ", "いいい", "ううう", "えええ", "おおお",
-    // ])
     var qs = this.questions.slice(0, this.askedIndex() + 1)
     qs.forEach((q) => {
       messages.push({
@@ -59,6 +53,12 @@ let askInstance = new Ask([
     message: "お名前を教えて下さい",
     placeholder: "名前を入力",
     type: "input"
+  },
+  {
+    name: "size",
+    message: "大きさは？",
+    type: "select",
+    options: ["大型犬", "小型犬", "中型犬"]
   },
   {
     name: "kana",
