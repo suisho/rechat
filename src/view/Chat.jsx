@@ -1,5 +1,6 @@
-import React   from "react"
+import React   from "react/addons"
 import Message from "./Message.jsx"
+var CSSTransitionGroup = React.addons.CSSTransitionGroup
 
 // TODO: scroll controller
 export default class extends React.Component{
@@ -38,7 +39,9 @@ export default class extends React.Component{
     })
     return (
       <div className="chat-area">
-        {messages}
+        <CSSTransitionGroup transitionName="msg">
+          {messages}
+        </CSSTransitionGroup>
       </div>
     )
   }

@@ -14,7 +14,8 @@
   "dependencies": {
     "flummox": "^4.0.0-alpha",
     "marty": "^0.9.11",
-    "react": "^0.13.1",
+    "normalize.css": "^3.0.3",
+    "react": "^0.13.2",
     "reflux": "^0.2.7",
     "sanitize.css": "^1.1.0"
   },
