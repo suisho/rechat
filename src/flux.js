@@ -49,16 +49,16 @@ class Ask{
 
 let askInstance = new Ask([
   {
-    name: "name",
-    message: "お名前を教えて下さい",
-    placeholder: "名前を入力",
-    type: "input"
-  },
-  {
     name: "size",
     message: "大きさは？",
     type: "select",
     options: ["大型犬", "小型犬", "中型犬"]
+  },
+  {
+    name: "name",
+    message: "お名前を教えて下さい",
+    placeholder: "名前を入力",
+    type: "input"
   },
   {
     name: "kana",
