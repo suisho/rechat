@@ -39,11 +39,13 @@ class Ask{
     var qs = this.questions.slice(0, this.askedIndex() + 1)
     qs.forEach((q) => {
       messages.push({
-        message: q.message
+        message: q.message,
+        type: "question"
       })
       if(this.answers[q.name]){
         messages.push({
-          message: this.answers[q.name]
+          message: this.answers[q.name],
+          type: "answer"
         })
       }
     })
