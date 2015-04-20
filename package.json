@@ -29,12 +29,11 @@
     "browserify": "^9.0.8",
     "eslint": "^0.19.0",
     "eslint-plugin-react": "^2.1.1",
+    "budo": "^3.1.0",
+    "garnish": "^2.1.3",
     "insert-css": "^0.2.0",
     "mocha": "^2.2.4",
-    "reactify": "^1.1.0",
-    "static": "^2.0.0",
     "stylify": "^1.2.0",
-    "watchify": "^3.1.1",
-    "wzrd": "^1.2.1"
+    "watchify": "^3.1.1"
   }
 }
