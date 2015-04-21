@@ -12,9 +12,24 @@ class Ask{
     this.questionIndex = Immutable.Map(qIdx)a
     this.answers = {}
   }
-  answer(question, answer){
-    
-    this.answers[question] = answer
+  getQuestion(name){
+    // TODO: error check
+    return this.questions[this.questionIndex[name]]
+  }
+  validate(name, answer){
+    var q = this.getQuestion(name)
+    var validateFunc = function(){ return true }
+    if(typeof q.validate === "function"){
+      validateFunc = q.validate
+    }
+    return validateFunc(answer)
+  }
+  answer(name, answer){
+    if(this.validate(answer)){
+      this.answers[name] = answer
+    }else{
+      throw new Error("validation error")
+    }
   }
   askedIndex(){
     for(let i = 0; i < this.questions.length; i++){
@@ -106,14 +121,20 @@ class AskStore extends Store {
     return this.ask.getNextAsk()
   }
   handleNewMessage(content) {
-    this.ask.answer(content.name, content.value)
-    this.setState({
-      messages: this.ask.buildMessages()
-      // [id]: {
-      //   content,
-      //   id
-      // }
-    })
+    try{
+      this.ask.answer(content.name, content.value)
+      this.setState({
+        messages: this.ask.buildMessages()
+      })
+    }catch(e){
+      var msg = this.ask.buildMessages()
+      msg.push({
+        message : "error"
+      })
+      this.setState({
+        messages: msg
+      })
+    }
   }
 }
 
