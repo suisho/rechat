@@ -1,75 +1,10 @@
-import { Flummox, Store, Actions } from "flummox"
+import { Flummox, Store } from "flummox"
 import Keys from "./keys"
-import Immutable from "immutable"
+import AnswerActions from "./actions/AnswerActions"
+import AnswerStore from "./stores/AnswerStore"
+import MessageStore from "./stores/MessageStore"
 
-class Ask{
-  constructor(questions){
-    this.questions = questions
-    var qIdx = {}
-    questions.forEach((val, i) => {
-      qIdx[val.name] = i
-    })
-    this.questionIndex = Immutable.Map(qIdx)
-    this.answers = {}
-  }
-  getQuestion(name){
-    // TODO: error check
-    return this.questions[this.questionIndex.get(name)]
-  }
-  validate(name, answer){
-    var q = this.getQuestion(name)
-    var validateFunc = function(){ return true }
-    if(typeof q.validate === "function"){
-      validateFunc = q.validate
-    }
-    return validateFunc(answer)
-  }
-  answer(name, answer){
-    if(this.validate(name, answer)){
-      this.answers[name] = answer
-    }else{
-      throw new Error("validation error")
-    }
-  }
-  askedIndex(){
-    for(let i = 0; i < this.questions.length; i++){
-      var q = this.questions[i]
-      if(!this.answers[q.name]){
-        return i
-      }
-    }
-    return this.questions.length
-  }
-  getNextAsk(){
-    return this.questions[this.askedIndex()]
-  }
-  dummyMessage(msgs){
-    return msgs.map((msg) => {
-      return {
-        message: msg
-      }
-    })
-  }
-  buildMessages(){
-    var messages = []
-    var qs = this.questions.slice(0, this.askedIndex() + 1)
-    qs.forEach((q) => {
-      messages.push({
-        message: q.message,
-        type: "question"
-      })
-      if(this.answers[q.name]){
-        messages.push({
-          message: this.answers[q.name],
-          type: "answer"
-        })
-      }
-    })
-    return messages
-  }
-}
-
-let askInstance = new Ask([
+var inq = [
   {
     name: "age",
     message: "年齢を教えて下さい",
@@ -96,57 +31,12 @@ let askInstance = new Ask([
   //   placeholder: "ふりがなを入力",
   //   type: "input"
   // }
-])
-
-class AppActions extends Actions {
-  answer(name, value) {
-    return { name: name, value: value }
-  }
-}
-
-class AskStore extends Store {
-  constructor(flux, ask) {
-    super()
-    const messageActions = flux.getActions(Keys.ask)
-    this.register(messageActions.answer, this.handleNewMessage);
-    this.ask = ask
-    this.state = {
-      messages: this.ask.buildMessages()
-    };
-  }
-  getMessages(){
-    return this.state.messages
-  }
-  getNextAsk(){
-    return this.ask.getNextAsk()
-  }
-  handleNewMessage(content) {
-    try{
-      this.ask.answer(content.name, content.value)
-      this.setState({
-        messages: this.ask.buildMessages()
-      })
-    }catch(e){
-      var msg = this.ask.buildMessages()
-      msg.push({
-        message: "error"
-      })
-      this.setState({
-        messages: msg
-      })
-    }
-  }
-}
-
-
+]
 export default class extends Flummox {
   constructor() {
     super();
-
-    this.createActions(Keys.ask, AppActions)
-    this.createStore(Keys.ask, AskStore, this, askInstance)
-
-    // this.createActions("messages", MessageActions)
-    // this.createStore("messages", MessageStore, this)
+    this.createActions(Keys.answer, AnswerActions)
+    this.createStore(Keys.message, MessageStore, this)
+    this.createStore(Keys.answer, AnswerStore, this, inq)
   }
 }

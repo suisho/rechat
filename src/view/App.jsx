@@ -27,14 +27,16 @@ export default class extends React.Component{
     this.flux = new Flux()
   }
   onSubmit(name, value){
-    this.flux.getActions(Keys.ask).answer(name, value)
+    this.flux.getActions(Keys.answer).answer(name, value)
   }
   render(){
     return (
       <FluxComponent flux={this.flux} connectToStores={{
-        ask: store => ({
-          ask: store.getNextAsk(),
-          messages: store.getMessages()
+        answer: store => ({
+          ask: store.state.nextAsk
+        }),
+        message: store => ({
+          messages: store.state.messages
         })
       }}>
         <ChatHandler onSubmit={this.onSubmit} />
