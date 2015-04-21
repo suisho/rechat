@@ -1,12 +1,14 @@
 env:
   node: true
   browser: true
+  mocha: true
 rules:
   semi: 0
   no-unused-vars: 1
   strict: false
   no-multi-spaces: 0
   new-cap: 0
+  quotes: 0
 ecmaFeatures:
   arrowFunctions: true
   binaryLiterals: true
