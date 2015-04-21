@@ -34,14 +34,16 @@ export default class extends Store {
     }
     return validateFunc(answer)
   }
-  handleAnswer(name, answer){
+  handleAnswer(obj){
+    const {name, value} = obj
+    const answer = value
     if(this.validate(name, answer)){
-      var ans = this.state.answer
+      var ans = this.state.answers
       ans[name] = answer
-      this.setState({ answers: ans })
-      this.messageActions.message(ans)
-
+      // this.setState({ answers: ans })
+      this.messageActions.message(answer, "answer")
     }else{
+      // this.messageActions.message("正しくありません", "validate-error")
       // throw new Error("validation error")
     }
   }

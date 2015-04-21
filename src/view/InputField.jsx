@@ -12,7 +12,6 @@ export default class extends React.Component{
     this.props.onSubmit(text)
   }
   render(){
-    
     const {placeholder} = this.props
 
     var inputElement = <input ref="input" placeholder={placeholder} />
