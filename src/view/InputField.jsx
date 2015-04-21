@@ -9,32 +9,12 @@ export default class extends React.Component{
     e.preventDefault()
     const node = React.findDOMNode(this.refs.input)
     const text = node.value.trim();
-    const name = node.name
-    this.props.onSubmit(name, text)
-    node.value = ""
-  }
-  generateInputElement(ask){
-    switch(ask.type){
-      case "input":
-        const {name, placeholder} = ask || {}
-        return <input ref="input" name={name} placeholder={placeholder} />
-      case "select":
-        var options = ask.options.map((val, i) => {
-          return <li key={i}>
-            <button onClick={this.submit}>{val}</button>
-          </li>
-        })
-        return (
-          <ul className="selective-input">
-            {options}
-          </ul>
-        )
-    }
-    return <div></div>
+    this.props.onSubmit(text)
   }
   render(){
-    const {ask} = this.props
-    var inputElement = this.generateInputElement(ask)
+    const {name, placeholder} = this.props
+
+    var inputElement = <input ref="input" name={name} placeholder={placeholder} />
     var buttonElement = <button>送信</button>
 
     return (

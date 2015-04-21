@@ -1,5 +1,5 @@
 import React from "react"
-import InputField from "./InputField.jsx"
+import Field from "./Field.jsx"
 import Chat       from "./Chat.jsx"
 import FluxComponent from "flummox/component";
 import connectToStores from "flummox/connect";
@@ -14,7 +14,7 @@ class ChatHandler extends React.Component{
       <div>
         <h1 className="header">Hello</h1>
         <Chat messages={messages} />
-        <InputField onSubmit={onSubmit} ask={ask}/>
+        <Field onSubmit={onSubmit} ask={ask}/>
       </div>
     )
   }
