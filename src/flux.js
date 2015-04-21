@@ -9,12 +9,12 @@ class Ask{
     questions.forEach((val, i) => {
       qIdx[val.name] = i
     })
-    this.questionIndex = Immutable.Map(qIdx)a
+    this.questionIndex = Immutable.Map(qIdx)
     this.answers = {}
   }
   getQuestion(name){
     // TODO: error check
-    return this.questions[this.questionIndex[name]]
+    return this.questions[this.questionIndex.get(name)]
   }
   validate(name, answer){
     var q = this.getQuestion(name)
@@ -25,7 +25,7 @@ class Ask{
     return validateFunc(answer)
   }
   answer(name, answer){
-    if(this.validate(answer)){
+    if(this.validate(name, answer)){
       this.answers[name] = answer
     }else{
       throw new Error("validation error")
@@ -89,7 +89,7 @@ let askInstance = new Ask([
     message: "大きさは？",
     type: "select",
     options: ["大型犬", "小型犬", "中型犬"]
-  },
+  }
   // {
   //   name: "kana",
   //   message: "ふりがなも教えて下さい",
@@ -129,7 +129,7 @@ class AskStore extends Store {
     }catch(e){
       var msg = this.ask.buildMessages()
       msg.push({
-        message : "error"
+        message: "error"
       })
       this.setState({
         messages: msg
