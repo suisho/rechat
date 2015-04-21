@@ -6,6 +6,7 @@ rules:
   no-unused-vars: 1
   strict: false
   no-multi-spaces: 0
+  new-cap: 0
 ecmaFeatures:
   arrowFunctions: true
   binaryLiterals: true

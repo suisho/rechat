@@ -13,6 +13,7 @@
   "license": "ISC",
   "dependencies": {
     "flummox": "^4.0.0-alpha",
+    "immutable": "^3.7.2",
     "marty": "^0.9.11",
     "normalize.css": "^3.0.3",
     "react": "^0.13.2",

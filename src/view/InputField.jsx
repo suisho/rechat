@@ -12,11 +12,11 @@ export default class extends React.Component{
     this.props.onSubmit(text)
   }
   render(){
-    const {name, placeholder} = this.props
+    
+    const {placeholder} = this.props
 
-    var inputElement = <input ref="input" name={name} placeholder={placeholder} />
+    var inputElement = <input ref="input" placeholder={placeholder} />
     var buttonElement = <button>送信</button>
-
     return (
       <form className="inputField" onSubmit={this.submit}>
         {inputElement}

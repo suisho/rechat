@@ -1,12 +1,19 @@
 import { Flummox, Store, Actions } from "flummox"
 import Keys from "./keys"
+import Immutable from "immutable"
 
 class Ask{
   constructor(questions){
     this.questions = questions
+    var qIdx = {}
+    questions.forEach((val, i) => {
+      qIdx[val.name] = i
+    })
+    this.questionIndex = Immutable.Map(qIdx)a
     this.answers = {}
   }
   answer(question, answer){
+    
     this.answers[question] = answer
   }
   askedIndex(){
@@ -49,10 +56,12 @@ class Ask{
 
 let askInstance = new Ask([
   {
-    name: "size",
-    message: "大きさは？",
-    type: "select",
-    options: ["大型犬", "小型犬", "中型犬"]
+    name: "age",
+    message: "年齢を教えて下さい",
+    type: "input",
+    validate: function(value){
+      return !isNaN(value)
+    }
   },
   {
     name: "name",
@@ -61,11 +70,17 @@ let askInstance = new Ask([
     type: "input"
   },
   {
-    name: "kana",
-    message: "ふりがなも教えて下さい",
-    placeholder: "ふりがなを入力",
-    type: "input"
-  }
+    name: "size",
+    message: "大きさは？",
+    type: "select",
+    options: ["大型犬", "小型犬", "中型犬"]
+  },
+  // {
+  //   name: "kana",
+  //   message: "ふりがなも教えて下さい",
+  //   placeholder: "ふりがなを入力",
+  //   type: "input"
+  // }
 ])
 
 class AppActions extends Actions {

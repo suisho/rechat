@@ -17,24 +17,21 @@ export default class extends React.Component{
     return this.getAsk().name
   }
   fieldElement(ask){
-    const {name, type} = ask
+    const {type} = ask || ""
     switch(type){
       case "input":
         const {placeholder} = ask
-        return <InputField name={name} placeholder={placeholder} onSubmit={this.submit}/>
+        return <InputField placeholder={placeholder} onSubmit={this.submit}/>
       case "select":
         const {options} = ask
-        return <SelectField name={name} options={options} onSubmit={this.submit}/>
+        return <SelectField options={options} onSubmit={this.submit}/>
     }
+    return <div>ありがとうございました</div>
   }
   render(){
     const {ask} = this.props
     var field = this.fieldElement(ask)
-    return (
-      <form className="input-field" onSubmit={this.submit}>
-        {field}
-      </form>
-    )
+    return <div className="input-field"> {field} </div>
   }
 }
 
