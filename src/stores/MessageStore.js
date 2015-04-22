@@ -10,13 +10,18 @@ export default class extends Store {
       messages: []
     }
   }
-  handleNewMessage(obj){
-    const { message, type} = obj
-    var msgs = this.state.messages
-    msgs.push({
+  addMessage(message, type){
+    this._addMessage({
       message: message,
       type: type
     })
+  }
+  handleNewMessage(obj){
+    this._addMessage(obj)
+  }
+  _addMessage(obj){
+    var msgs = this.state.messages
+    msgs.push(obj)
     this.setState({
       messages: msgs
     })

@@ -43,28 +43,28 @@ export default class extends Store {
   }
   handleAnswer(obj){
     const {name, answer} = obj
+    this.sendMessage(answer, "answer")
+
     if(this.validate(name, answer)){
       var ans = this.state.answers
       ans[name] = answer
-      // this.setState({ answers: ans })
-      this.sendMessage(answer, "answer")
+      this.setState({ answers: ans })
     }else{
-      // this.messageActions.message("正しくありません", "validate-error")
-      // throw new Error("validation error")
+      this.sendMessage("ん？なんだって？", "validation-error")
     }
+    this.updateNextAsk()
   }
   updateNextAsk(){
-    // this.askIndex = this.getAskIndex()
     var unAnswerdAsk = this.inquiry.find((inq) => {
       var name = inq.name
       return !this.state.answers[name]
     })
-    if(this.currentAskName === unAnswerdAsk.name){
-      return
-    }
-
-    this.currentAskName = unAnswerdAsk.name
-    this.messageActions.message(unAnswerdAsk.message, "question")
+    // Show duplicate erro?
+    // if(this.currentAskName === unAnswerdAsk.name){
+    //   return
+    // }
+    // this.currentAskName = unAnswerdAsk.name
+    this.sendMessage(unAnswerdAsk.message, "question")
 
     this.setState({
       nextAsk: unAnswerdAsk

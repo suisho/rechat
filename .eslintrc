@@ -9,6 +9,7 @@ rules:
   no-multi-spaces: 0
   new-cap: 0
   quotes: 0
+  no-underscore-dangle: 0
 ecmaFeatures:
   arrowFunctions: true
   binaryLiterals: true

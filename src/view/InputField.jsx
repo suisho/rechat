@@ -10,6 +10,10 @@ export default class extends React.Component{
     const node = React.findDOMNode(this.refs.input)
     const text = node.value.trim();
     this.props.onSubmit(text)
+    this.reset()
+  }
+  reset(){
+    React.findDOMNode(this.refs.input).value = ""
   }
   render(){
     const {placeholder} = this.props

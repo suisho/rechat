@@ -31,7 +31,9 @@ export default class extends React.Component{
   render(){
     const {ask} = this.props
     var field = this.fieldElement(ask)
-    return <div className="input-field"> {field} </div>
+    return <div className="input-field" key={ask.name}>
+      {field}
+    </div>
   }
 }
 
