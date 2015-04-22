@@ -13,6 +13,7 @@ function toOrderdMap(questions){
 export default class extends Store {
   constructor(flux, questions){
     super()
+    this.flux = flux
     this.messageActions = flux.getActions(Keys.answer)
     this.register(this.messageActions.answer, this.handleAnswer);
     this.inquiry = toOrderdMap(questions)
@@ -26,6 +27,12 @@ export default class extends Store {
   getAnswer(name){
     return this.state.answers[name]
   }
+  sendMessage(message, type){
+    return this.flux.getStore(Keys.message).handleNewMessage({
+      message: message,
+      type: type
+    })
+  }
   validate(name, answer){
     var q = this.inquiry.get(name)
     var validateFunc = function(){ return true }
@@ -35,13 +42,12 @@ export default class extends Store {
     return validateFunc(answer)
   }
   handleAnswer(obj){
-    const {name, value} = obj
-    const answer = value
+    const {name, answer} = obj
     if(this.validate(name, answer)){
       var ans = this.state.answers
       ans[name] = answer
       // this.setState({ answers: ans })
-      this.messageActions.message(answer, "answer")
+      this.sendMessage(answer, "answer")
     }else{
       // this.messageActions.message("正しくありません", "validate-error")
       // throw new Error("validation error")
@@ -64,42 +70,4 @@ export default class extends Store {
       nextAsk: unAnswerdAsk
     })
   }
-  // getAskIndex(){
-  //   var questions = this.inquiry.toArray()
-  //   for(let i = 0; i < questions.length; i++){
-  //     var q = questions.get(i)
-  //     if(!this.answers[q.name]){
-  //       return i
-  //     }
-  //   }
-  //   return this.questions.length
-  // }
-  // getQuestionMessage(name){
-  //   var q = this.getQuestion(name)
-  //   return {
-  //     message: q.message,
-  //     type: "question"
-  //   }
-  // }
-  // getAnswerMessage(name){
-  //   var q = this.getQuestion(name)
-  //   return {
-  //     message: q.message,
-  //     type: "question"
-  //   }
-  // }
-  // buildMessages(){
-  //   var messages = []
-  //   var qs = this.questions.slice(0, this.askedIndex() + 1)
-  //   qs.forEach((q) => {
-  //     messages.push()
-  //     if(this.answers[q.name]){
-  //       messages.push({
-  //         message: this.answers[q.name],
-  //         type: "answer"
-  //       })
-  //     }
-  //   })
-  //   return messages
-  // }
 }
