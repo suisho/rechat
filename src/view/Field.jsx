@@ -29,9 +29,10 @@ export default class extends React.Component{
     return <div>ありがとうございました</div>
   }
   render(){
-    const {ask} = this.props
+    const { ask } = this.props
     var field = this.fieldElement(ask)
-    return <div className="input-field" key={ask.name}>
+    var name = ask ? ask.name : undefined
+    return <div className="input-field" key={name}>
       {field}
     </div>
   }
