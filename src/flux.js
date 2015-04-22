@@ -9,6 +9,7 @@ var inq = [
     name: "age",
     message: "年齢を教えて下さい",
     type: "input",
+    errorMsg: "数値で入力して下さい",
     validate: function(value){
       return !isNaN(value)
     }

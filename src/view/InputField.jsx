@@ -9,6 +9,9 @@ export default class extends React.Component{
     e.preventDefault()
     const node = React.findDOMNode(this.refs.input)
     const text = node.value.trim();
+    if(text.length === 0){
+      return
+    }
     this.props.onSubmit(text)
     this.reset()
   }

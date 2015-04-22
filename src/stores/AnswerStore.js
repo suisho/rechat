@@ -17,12 +17,17 @@ export default class extends Store {
     this.messageActions = flux.getActions(Keys.answer)
     this.register(this.messageActions.answer, this.handleAnswer);
     this.inquiry = toOrderdMap(questions)
-    this.currentAskName = null
+    // this.currentAskName = null
     this.state = {
       answers: {},
       nextAsk: null
     }
     this.updateNextAsk()
+  }
+  allInquiryAnswerd(){
+    this.inquiry.every((inq) => {
+      return this.state.answers[inq.name]
+    })
   }
   getAnswer(name){
     return this.state.answers[name]
@@ -50,24 +55,30 @@ export default class extends Store {
       ans[name] = answer
       this.setState({ answers: ans })
     }else{
-      this.sendMessage("ん？なんだって？", "validation-error")
+      const inq = this.inquiry.get(name)
+      this.sendMessage(inq.errorMsg, "validation-error")
     }
     this.updateNextAsk()
   }
-  updateNextAsk(){
-    var unAnswerdAsk = this.inquiry.find((inq) => {
+  getUnanswerdInquiry(){
+    return this.inquiry.find((inq) => {
       var name = inq.name
       return !this.state.answers[name]
     })
+  }
+  updateNextAsk(){
+    const inq = this.getUnanswerdInquiry()
     // Show duplicate erro?
     // if(this.currentAskName === unAnswerdAsk.name){
     //   return
     // }
-    // this.currentAskName = unAnswerdAsk.name
-    this.sendMessage(unAnswerdAsk.message, "question")
+    // this.currentAskName = inq.name
 
+    if(inq){
+      this.sendMessage(inq.message, "question")
+    }
     this.setState({
-      nextAsk: unAnswerdAsk
+      nextAsk: inq
     })
   }
 }

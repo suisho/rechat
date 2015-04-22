@@ -16,8 +16,8 @@ export default class extends React.Component{
       var onSubmitFunc = (e) => {
         this.submit(e, val)
       }
-      return <li key={i}>
-        <button onClick={onSubmitFunc} >{val}</button>
+      return <li key={i} onClick={onSubmitFunc}>
+        {val}
       </li>
     })
     return (
