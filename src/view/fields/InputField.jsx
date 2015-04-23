@@ -5,15 +5,24 @@ export default class extends React.Component{
     super()
     this.submit = this.submit.bind(this)
   }
+  getInputNode(){
+    return React.findDOMNode(this.refs.input)
+  }
   submit(e){
     e.preventDefault()
-    const node = React.findDOMNode(this.refs.input)
+    const node = this.getInputNode()
     const text = node.value.trim();
     if(text.length === 0){
       return
     }
     this.props.onSubmit(text)
     this.reset()
+  }
+  focus(){
+    this.getInputNode().focus()
+  }
+  componentDidMount(){
+    this.focus()
   }
   reset(){
     React.findDOMNode(this.refs.input).value = ""

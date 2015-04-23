@@ -1,6 +1,6 @@
 import React from "react"
-import InputField from "./InputField.jsx"
-import SelectField from "./SelectField.jsx"
+import InputField from "./fields/InputField.jsx"
+import SelectField from "./fields/SelectField.jsx"
 
 export default class extends React.Component{
   constructor(){
